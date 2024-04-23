@@ -28,53 +28,51 @@ class Program
                 bool done = false;
                 while (done==false)
                 {
-                Console.WriteLine("Enter 1 to create a grocery list.");
-                Console.WriteLine("Enter 2 to update the grocery list.");
-                Console.WriteLine("Enter 3 to exit the program.");
+                    Console.WriteLine("Welcome to the Main Menu!");
+                    Console.WriteLine("Enter 1 to create a grocery list.");
+                    Console.WriteLine("Enter 2 to update the grocery list.");
+                    Console.WriteLine("Enter 3 to exit the program.");
 
-                int optionResponse = Convert.ToInt32(Console.ReadLine());
+                    int optionResponse = Convert.ToInt32(Console.ReadLine());
 
-                if (optionResponse == 1)
-                {
-                   // bool done = false;
-                    string[] groceryList= new string[4];
+                    if (optionResponse == 1)
+                    {
+                        string[] groceryList= new string[4];
 
-                    Console.WriteLine("Lets make a grocery list!");  
+                        Console.WriteLine("Lets make a grocery list!");  
 
-                   
+                            for (int i = 0; i < groceryList.Length; i++)
+                            {
+                                Console.WriteLine($"Enter item {i + 1}: ");
+                                groceryList[i] = Console.ReadLine();
+                            }
 
-                        for (int i = 0; i < groceryList.Length; i++)
-                        {
-                            Console.WriteLine($"Enter item {i + 1}: ");
-                            groceryList[i] = Console.ReadLine();
-                        }
+                            Console.Clear();
+                            Console.WriteLine ("This is your grocery list so far: ");
 
-                        Console.Clear();
-                        Console.WriteLine ("This is your grocery list so far: ");
+                            foreach (string i in groceryList)
+                            {
+                                Console.WriteLine(i);
+                            }
 
-                        foreach (string i in groceryList)
-                        {
-                            Console.WriteLine(i);
-                        }
+                            Console.WriteLine("---------------------------------");
+                    }
+                    else if (optionResponse == 2)
+                    {
+                        Console.WriteLine("You've opted to update the list.");
 
+                    }
+                    else if (optionResponse == 3)
+                    {
+                        Console.WriteLine("Bye!");
+                        Environment.Exit(0);
+                        done = true;
                     
-                }
-                else if (optionResponse == 2)
-                {
-                    Console.WriteLine("You've opted to update the list.");
-
-                }
-                else if (optionResponse == 3)
-                {
-                    Environment.Exit(0);
-                    done = true;
-                    //Console.WriteLine("Bye!");
-                   
-                }
-                else 
-                {
-                    Console.WriteLine("Please enter a valid response!");
-                }
+                    }
+                    else 
+                    {
+                        Console.WriteLine("Please enter a valid response!");
+                    }
             }
         }
 
