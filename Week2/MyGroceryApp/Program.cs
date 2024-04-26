@@ -10,14 +10,13 @@ namespace MyGroceryApp
             
             public Food (string name, string category)
             {
-                Name = name;
-              
+                Name=name;
+                category=category;
             }
         }
 
         public class Snack : Food
         {
-           
             public Snack (string name) : base (name, "Snack")
             {
 
@@ -26,7 +25,6 @@ namespace MyGroceryApp
 
         public class Ingredient : Food
         {
-
             public Ingredient(string name) : base (name, "Ingredient")
             {
 
@@ -35,7 +33,6 @@ namespace MyGroceryApp
 
         public class GroceryApp
         {
-            
             List<string> groceryList = new List<string>();
             List<string> newItemsList = new List<string>();
     
@@ -66,13 +63,11 @@ namespace MyGroceryApp
 
                 } while (item.ToLower() != "done");
 
-                
             }
 
 
             public void DisplayGroceryList()
             {
-                
                 foreach (var item in groceryList)
                 {
                     Console.WriteLine(item);
@@ -145,10 +140,10 @@ namespace MyGroceryApp
                             categorizedItems.Add(new CategorizedFood(item, "Other"));
                         }
 
-
                     }
 
                     Console.WriteLine("\nCategorized Items: ");
+
                     foreach (var item in categorizedItems)
                     {
                         Console.WriteLine(item);
@@ -159,6 +154,7 @@ namespace MyGroceryApp
             private bool IsSnack(string item)
             {
                 string[] snackKeyWords = {"candy", "cookies", "yogurt", "string cheese", "donuts"};
+
                 foreach (string keyword in snackKeyWords)
                 {
                     if (item.ToLower().Contains(keyword))
@@ -173,6 +169,7 @@ namespace MyGroceryApp
             private bool IsIngredient(string item)
             {
                 string[] IngredientKeyWords = {"pasta", "rice", "flour", "chicken", "tomato sauce"};
+
                 foreach (string keyword in IngredientKeyWords)
                 {
                     if (item.ToLower().Contains(keyword))
@@ -181,7 +178,7 @@ namespace MyGroceryApp
                     }
                    
                 }
-            return false;
+                return false;
 
             }
 
