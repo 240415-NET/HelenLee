@@ -11,9 +11,8 @@ namespace MyGroceryApp
             public Food (string name, string category)
             {
                 Name=name;
-                category=category;
-            }
         }
+    }
 
         public class Snack : Food
         {
@@ -47,7 +46,7 @@ namespace MyGroceryApp
                 do
                 {
                     Console.Write($"Enter item # {itemNumber}: ");
-                    item = Console.ReadLine();
+                    item = Console.ReadLine() ?? "";
 
                     if (item.ToLower() != "done")
                     {
@@ -84,7 +83,7 @@ namespace MyGroceryApp
                 do
                 {
                     Console.Write($"Enter item # {itemNumber}: ");
-                    newItem = Console.ReadLine();
+                    newItem = Console.ReadLine() ?? "";
 
                     if (newItem.ToLower() != "done")
                     {
@@ -126,6 +125,8 @@ namespace MyGroceryApp
 
                     foreach (string item in groceryList)
                     {
+                        //checks if the current item is a snack by calling 'IsSnack' method
+                        //if it is, creates a new instance of 'CategorizedFood' with item's name and "Snack" then adds it to 'categorizedItems' List
                         if (IsSnack(item))
                         {
                             categorizedItems.Add(new CategorizedFood(item, "Snack"));

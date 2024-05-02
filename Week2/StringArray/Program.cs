@@ -1,4 +1,4 @@
-﻿/*
+﻿﻿/*
 In this Hackathon we want to create a C# console application with the following requirments.
 
 1 - Prompts the user for multiple values
@@ -12,7 +12,6 @@ The goal of this application is to create, manipulate and modify an array of a c
 An potential example you can use is a grocery list, that a user can add items to, and then update if they have bought it or not.
 
 */
-using System;
 using System.Collections.Generic;
 
 namespace StringArray;
@@ -21,7 +20,10 @@ class Program
 {
     static void Main(string[] args)
     { 
-       bool caught = false;
+        bool caught = false;
+        string[] groceryList= new string[4];
+        string [] addedList = new string [4];
+        List <string> checkedList = new List<string>();
 
        try
        {
@@ -37,7 +39,6 @@ class Program
 
                     if (optionResponse == 1)
                     {
-                        string[] groceryList= new string[4];
 
                         Console.WriteLine("Lets make a grocery list!");  
 
@@ -57,11 +58,90 @@ class Program
 
                             Console.WriteLine("---------------------------------");
                     }
+                    
                     else if (optionResponse == 2)
                     {
-                        Console.WriteLine("You've opted to update the list.");
+                        
+                        Console.WriteLine("You've opted to update the list. Enter 'add' to add to the list and 'check off' to cross off items bought");
+                        string userResponse2 = Console.ReadLine().Trim().ToLower();
+
+                        if (userResponse2 == "add")
+                        {
+                            
+                            for (int i = 0; i < addedList.Length; i++)
+                            {
+                                Console.WriteLine($"Enter new item #{i + 1}");
+                                addedList[i] = Console.ReadLine();
+                            }
+
+                            Console.Clear();
+
+                            for (int a = 0; a < groceryList.Length ; a++)
+                            {
+                                //groceryList[a] += addedList[a];
+                                groceryList[a] = groceryList[a] + " " + addedList[a];
+                            }
+                            
+                            Console.Clear();
+                            Console.WriteLine("Here is your new combined list:");
+                            
+                            foreach (string str in groceryList)
+                            {
+                                Console.WriteLine(str);
+                            }
+
+                           Console.WriteLine("---------------------------------");
+                        }
+                        
+                        else if ( userResponse2 == "check off")
+                        {
+
+                            /*
+                            string [] checkedArray = new string[groceryList.Length];
+                            
+                            for (int i = 0; i < groceryList.Length; i++)
+                            {
+                                Console.WriteLine($"Enter item #{i + 1} to check off");
+                                string itemToRemove = Console.ReadLine();
+
+                                if (string.TryParse(itemToRemove, out string validItem))
+                                {
+                                    checkedList.Add(validItem);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Invalid input. Please enter a valid string");
+                                    i++;
+                                }
+                            }
+
+                            Console.Clear();
+
+                            for (int a = 3; a < groceryList.Length ; a--)
+                            {
+                                //groceryList[a] += addedList[a];
+                                groceryList[a] = groceryList[a] - addedList[a];
+                            }
+                            
+                            Console.Clear();
+                            Console.WriteLine("Here is your new checked off list:");
+                            
+                            foreach (string str in groceryList)
+                            {
+                                Console.WriteLine(str);
+                            }
+
+                            */
+                           Console.WriteLine("---------------------------------");
+                        }
+                        
+                        else
+                        {
+                            Console.WriteLine("Try again");
+                        }
 
                     }
+
                     else if (optionResponse == 3)
                     {
                         Console.WriteLine("Bye!");
@@ -69,6 +149,7 @@ class Program
                         done = true;
                     
                     }
+
                     else 
                     {
                         Console.WriteLine("Please enter a valid response!");
@@ -87,3 +168,4 @@ class Program
         }
      }
 }
+
