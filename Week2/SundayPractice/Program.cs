@@ -92,7 +92,7 @@ Writ
         Console.WriteLine($"Here's your avg: {avg}");
     }
 
-*/
+
     static void Main(string[] args)
     {
         List <int> gradesList = new List<int>();
@@ -140,4 +140,60 @@ Writ
 
     }
 
+   
+
+    static void Main (string[] args)
+    {
+        Random rand = new Random();
+        int randomNum = rand.Next(1,101);
+        int userGuess;
+        int guessTracker=0;
+        bool correct=false;
+
+        do 
+        {
+            Console.WriteLine("Enter a guess between 1-100: ");
+            userGuess=Convert.ToInt32(Console.ReadLine());
+
+            if (userGuess==randomNum)
+            {
+                guessTracker++;
+                Console.WriteLine($"Congrats! You guessed it correctly in {guessTracker} tries!");
+                correct=true;
+
+            }
+            else if (userGuess < randomNum)
+            {
+                Console.WriteLine("Too Low! Guess again!");
+                guessTracker++;
+                 correct=false;
+
+            }
+            else if (userGuess > randomNum)
+            {
+                Console.WriteLine("Too High! Guess again!");
+                guessTracker++;
+                correct=false;
+            }
+
+        } while (correct != true);
+
+    } */
+    static void Main(string[] args)
+
+    {
+        int input;
+        int result=1;
+        
+        Console.WriteLine("Enter input: ");
+        input = Convert.ToInt32(Console.ReadLine());
+
+        for (int i = input; i >=1 ; i--)
+        {
+            result = result *i;
+            Console.WriteLine($"i: {i} and result:{result}");
+        }
+
+        Console.WriteLine($"Final Result: {result}");
+    }
 }
