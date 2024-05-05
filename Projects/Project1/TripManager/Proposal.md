@@ -1,4 +1,4 @@
-Proposal
+Project 1 Proposal: A trip manager where multiple users can create, view existing trips, update and delete trips.
 
 Presentation -
 
