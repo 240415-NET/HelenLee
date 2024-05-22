@@ -11,5 +11,5 @@ public interface ITripStorageRepo
 
     public void UpdateTrip(Trip updatedTrip);
     
-
+    
 }

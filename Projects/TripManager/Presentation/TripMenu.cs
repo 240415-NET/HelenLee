@@ -19,6 +19,7 @@ public class TripMenu
         Console.WriteLine("4. Delete trip");
         Console.WriteLine("5. Return to User Menu");
         Console.WriteLine("6. Exit");
+       
 
         try
         {
@@ -48,11 +49,9 @@ public class TripMenu
                         Console.WriteLine($"Select the trip number you would like to delete, {user.userName}");
                         TripMenu.DeleteTripView(user);
                         break;
-
                     case "5":
                         Console.WriteLine("Taking you back to User Menu...");
                         UserMenu.StartMenu();
-                        
                         break;
                     case "6":
                         Console.WriteLine("Bye!");
@@ -119,6 +118,8 @@ public class TripMenu
             }
         } while (validInput = false);
     }
+
+
 
     //DisplayTrips for UPDATE and DELETE
     public static Trip DisplayTripsToModify(User user)

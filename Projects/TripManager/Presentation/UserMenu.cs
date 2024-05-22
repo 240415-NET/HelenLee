@@ -8,7 +8,7 @@ public class UserMenu
     public static void StartMenu() {
 
         int userChoice = 0;
-        bool validInput = true;
+        bool validChoice = true;
 
         Console.Clear();
         Console.WriteLine("Welcome to the Trip Manager");
@@ -20,8 +20,9 @@ public class UserMenu
         {
             try
             {
+                
                 userChoice = Convert.ToInt32(Console.ReadLine());
-                validInput = true;
+                validChoice = true;
 
                 switch (userChoice)
                 {
@@ -32,23 +33,25 @@ public class UserMenu
                         UserLoginMenu();
                         break;
                     case 3: 
+                        Console.WriteLine("Bye!");
+                        Environment.Exit(0);
                         return; 
                     default: 
                         Console.WriteLine("Please enter a valid choice (from the default)!");
-                        validInput = false;
+                        validChoice = false;
                         break;
                 }
 
             }
             catch (Exception ex) 
             {   
-                validInput = false;
+                validChoice = false;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 Console.WriteLine("Please enter a valid choice! (from the catch)");
             }
 
-        } while (!validInput);
+        } while (!validChoice);
 
     }
 
