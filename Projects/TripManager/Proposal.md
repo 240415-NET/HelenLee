@@ -29,7 +29,7 @@ Models -
   - tripType (string) (individual or group)
   - Start Date (DateTime)
   - End Date (DateTime)
-  - Cost (double)
+  - Cost (decimal)
 
 - Group Trip (Inherit Trip base class)
   - groupSize (int)

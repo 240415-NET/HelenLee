@@ -1,9 +1,15 @@
-﻿namespace TripManager;
+﻿using TripManager.Models;
+using TripManager.Presentation;
+
+namespace TripManager;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        UserMenu.StartMenu();
+
+        User myUser = new ("Jon");
+        //SqlRepository.StoreUser(myUser);
     }
 }
