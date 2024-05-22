@@ -17,7 +17,8 @@ public class TripMenu
         Console.WriteLine("2. View existing trip");
         Console.WriteLine("3. Update existing trip");
         Console.WriteLine("4. Delete trip");
-        Console.WriteLine("5. Exit");
+        Console.WriteLine("5. Return to User Menu");
+        Console.WriteLine("6. Exit");
 
         try
         {
@@ -49,10 +50,14 @@ public class TripMenu
                         break;
 
                     case "5":
+                        Console.WriteLine("Taking you back to User Menu...");
+                        UserMenu.StartMenu();
+                        
+                        break;
+                    case "6":
                         Console.WriteLine("Bye!");
                         validInput = true;
                         break;
-
                     default:
                         Console.WriteLine("Please enter a valid option");
                         break;
@@ -263,7 +268,7 @@ public class TripMenu
                     case "destination":
                         {
                             Console.WriteLine("Enter the new destination: ");
-                            string updatedValue = Console.ReadLine() ?? "";
+                            string updatedValue = Console.ReadLine();
                             updatedTrip.destination = updatedValue;
                             validInput = true;
                             break;
@@ -271,7 +276,7 @@ public class TripMenu
                     case "description":
                         {
                             Console.WriteLine("Enter the new description: ");
-                            string updatedValue = Console.ReadLine() ?? "";
+                            string updatedValue = Console.ReadLine();
                             updatedTrip.description = updatedValue;
                             validInput = true;
                             break;
@@ -279,7 +284,7 @@ public class TripMenu
                     case "trip type":
                         {
                             Console.WriteLine("Enter the new trip type:  ");
-                            string updatedValue = Console.ReadLine() ?? "";
+                            string updatedValue = Console.ReadLine();
                             updatedTrip.tripType = updatedValue;
                             validInput = true;
                             break;
@@ -304,7 +309,7 @@ public class TripMenu
                     case "cost":
                         {
                             Console.WriteLine("Enter the new cost (without $): ");
-                            decimal updatedValue = decimal.Parse(Console.ReadLine() ?? "");
+                            decimal updatedValue = decimal.Parse(Console.ReadLine());
                             updatedTrip.cost = updatedValue;
                             validInput = true;
                             break;

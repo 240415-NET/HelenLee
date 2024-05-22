@@ -10,6 +10,7 @@ public class UserMenu
         int userChoice = 0;
         bool validInput = true;
 
+        Console.Clear();
         Console.WriteLine("Welcome to the Trip Manager");
         Console.WriteLine("1. New user");
         Console.WriteLine("2. Returning user");
@@ -73,8 +74,10 @@ public class UserMenu
                 validInput = false;
             }else{ 
                 UserController.CreateUser(userInput);
-                Console.WriteLine("Profile created!");
+                Console.WriteLine("Profile created! Press any key to return to User Menu");
                 validInput = true;
+                Console.ReadKey();
+                UserMenu.StartMenu();
             }
 
         } while (!validInput); 
