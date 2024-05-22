@@ -6,7 +6,7 @@ namespace TripManager.Controllers;
 
 public class TripController
 {
-    private static ITripStorageRepo _tripData = new JsonTripStorage(); //SqlTripStorage();
+    private static ITripStorageRepo _tripData = new SqlTripStorage(); // JsonTripStorage();
                                                 
 
     public static void CreateTrip(
@@ -37,63 +37,15 @@ public class TripController
         return _tripData.GetTripsByUserId(user);
     }
 
-    
-    public static bool DeleteTrips(User user, string destination)
+    public static void UpdateTrip(Trip updatedTrip)
     {
-        try
-        {
-        var userTrips = _tripData.GetTripsByUserId(user);
-
-        Trip tripToDelete = userTrips.FirstOrDefault (trip => trip.destination == destination);
-        Console.WriteLine (tripToDelete.description);
-
- /*
-        if (tripToDelete != null)
-        {
-            List<Trip> allTrips = _tripData.LoadTrips();
-            if (allTrips.Contains(tripToDelete))
-            {
-                Console.WriteLine("contains it");
-            }
-            else 
-                Console.WriteLine("Nope");
-
-            allTrips.Remove(tripToDelete);
-            _tripData.SaveTrips(allTrips);
-
-            return true;
-        }
-
-*/
-         
-        List<Trip> allTrips = _tripData.LoadTrips();
-        for (int i = 0; i < allTrips.Count - 1; i++)
-        {
-            if (allTrips[i].destination == destination)
-            {
-                allTrips.RemoveAt(i);
-                break;
-            }
-        }
-
-        /*foreach (Trip trip in allTrips)
-        {
-            Console.WriteLine(trip);
-        }
-        */
-        _tripData.SaveTrips(allTrips);
-        return true;
-        
-        }
-
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-            Console.WriteLine(e.StackTrace.ToString());
-        }
-        return false;
+        _tripData.UpdateTrip(updatedTrip);
     }
-    
-    
-   
+
+    public static void DeleteTrip(Trip deleteTrip)
+    {
+        _tripData.DeleteTrip(deleteTrip);
+    }
+
+
 }

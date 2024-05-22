@@ -27,7 +27,6 @@ public class TripMenu
                 switch (userInput)
                 {
                     case "1":
-                        //Console.WriteLine("You've selected to create a new trip!");
                         Console.Clear();
                         TripMenu.NewTrip(user);
                         break;
@@ -38,12 +37,14 @@ public class TripMenu
                         break;
 
                     case "3":
-                        Console.WriteLine("You've selected to update an existing trip");
+                        Console.Clear();
+                        Console.WriteLine($"Select the trip number you would like to update, {user.userName}");
+                        TripMenu.UpdateTripMenu(user);
                         break;
 
                     case "4":
-                        Console.WriteLine("You've selected to delete a trip");
-                        
+                        Console.Clear();
+                        Console.WriteLine($"Select the trip number you would like to delete, {user.userName}");
                         TripMenu.DeleteTripView(user);
                         break;
 
@@ -114,7 +115,8 @@ public class TripMenu
         } while (validInput = false);
     }
 
-    public static void DisplayTrips(User user)
+    //DisplayTrips for UPDATE and DELETE
+    public static Trip DisplayTripsToModify(User user)
     {
         bool validInput = false;
 
@@ -122,8 +124,7 @@ public class TripMenu
         {
             try
             {
-                Console.WriteLine($"Here are your existing trips, {user.userName}");
-
+               
                 List<Trip> trips = TripController.ViewExistingTrip(user);
 
                 if (trips.Count == 0)
@@ -133,13 +134,61 @@ public class TripMenu
 
                 int counter = 1;
 
-                foreach (var trip in trips)
+                foreach (Trip trip in trips)
                 {
-                    //Console.WriteLine($"Trip ID: {trip.tripId}");
                     Console.WriteLine( $"{counter}. {trip.description} to {trip.destination} from {trip.startDate} to {trip.endDate}");
                     counter++;
                 }
                 
+                int userInput = Convert.ToInt32(Console.ReadLine());
+
+                //Returns the index of the list depending on what user selects
+            
+                int index = userInput - 1;
+
+                return trips[index];
+
+                validInput = true;
+                 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Try again with a valid input");
+                validInput = false;
+            }
+        } while (validInput = false);
+      
+        Console.ReadKey();
+        
+        return null;
+    }
+    
+    //Method for displaying all trips
+    public static void DisplayTrips(User user)
+    {
+        bool validInput = false;
+
+        do
+        {
+            try
+            {
+                Console.WriteLine($"Here are your existing trips, {user.userName}");
+                List<Trip> trips = TripController.ViewExistingTrip(user);
+
+                if (trips.Count == 0)
+                {
+                    Console.WriteLine("No trips found for this user");
+                }
+
+                int counter = 1;
+
+                foreach (Trip trip in trips)
+                {
+                    Console.WriteLine( $"{counter}. {trip.description} to {trip.destination} from {trip.startDate} to {trip.endDate}");
+                    counter++;
+                }
+
                  validInput = true;
                  
             }
@@ -150,32 +199,142 @@ public class TripMenu
                 validInput = false;
             }
         } while (validInput = false);
-
+        
         Console.ReadKey();
         TripMenu.MainTripMenu(user);
+        
     }
-    
-    
-    
-    public static User DeleteTripView(User user)
+
+     public static void DeleteTripView(User user)
     {
-        Console.WriteLine("Enter the Trip destination you want to delete: ");
-        string destination = Console.ReadLine();
-
-        bool isDeleted = TripController.DeleteTrips(user, destination);
        
-        if (isDeleted)
-        {
-            Console.WriteLine($"{destination} was deleted successfully");
-        }
-        else
-        {
-            Console.WriteLine("Trip was not found");
-        }
-        
-        return user;
-        
-    } 
+        List<Trip> allTripsByUser= TripController.ViewExistingTrip(user);
+        List<Trip> updateTripList = new();
 
- 
+        Trip deleteTrip = DisplayTripsToModify(user);
+        TripController.DeleteTrip(deleteTrip);
+
+        Console.WriteLine("Trip successfully deleted");
+        Console.ReadKey();
+        TripMenu.MainTripMenu(user);
+
+    }
+
+
+    public static void UpdateTripMenu(User user)
+    {
+        Trip tripToUpdate = DisplayTripsToModify(user);
+        UpdateEachTripDisplay(tripToUpdate, user);
+    }
+
+     public static void UpdateEachTripDisplay(Trip tripToUpdate, User user)
+    {
+        bool keepModifying = true;
+        bool isValid = false;
+
+        Trip updatedTrip = new Trip();
+
+        updatedTrip.tripId = tripToUpdate.tripId;
+        updatedTrip.destination = tripToUpdate.destination;
+        updatedTrip.description = tripToUpdate.description;
+        updatedTrip.tripType = tripToUpdate.tripType;
+        updatedTrip.startDate = tripToUpdate.startDate;
+        updatedTrip.endDate = tripToUpdate.endDate;
+        updatedTrip.cost = tripToUpdate.cost;
+
+
+        do
+        {
+            Console.Clear();
+            Console.WriteLine("Which would you like to update? \n");
+            Console.WriteLine($"Destination: {updatedTrip.destination}");
+            Console.WriteLine($"Description: {updatedTrip.description}");
+            Console.WriteLine($"Trip Type: {updatedTrip.tripType}");
+            Console.WriteLine($"Start Date: {updatedTrip.startDate}");
+            Console.WriteLine($"End Date: {updatedTrip.endDate}");
+            Console.WriteLine($"Cost: {updatedTrip.cost}");
+            Console.WriteLine("\nWhen you're done updating your trip, enter 'bye'!");
+            
+            try
+            {
+                switch (Console.ReadLine().ToLower())
+                {
+                    case "destination":
+                        {
+                            Console.WriteLine("Enter the new destination: ");
+                            string updatedValue = Console.ReadLine() ?? "";
+                            updatedTrip.destination = updatedValue;
+                            isValid = true;
+                            break;
+                        }
+                    case "description":
+                        {
+                            Console.WriteLine("Enter the new description: ");
+                            string updatedValue = Console.ReadLine() ?? "";
+                            updatedTrip.description = updatedValue;
+                            isValid = true;
+                            break;
+                        }
+                    case "trip type":
+                        {
+                            Console.WriteLine("Enter the new trip type:  ");
+                            string updatedValue = Console.ReadLine() ?? "";
+                            updatedTrip.tripType = updatedValue;
+                            isValid = true;
+                            break;
+                        }
+                    case "start date":
+                        {
+                            Console.WriteLine("Enter the new start date of the trip: ");
+                            DateTime updatedValue = DateTime.Parse(Console.ReadLine().Trim());
+                            updatedTrip.startDate = updatedValue;
+                            isValid = true;
+                            break;
+                        }
+                    case "end date":
+                        {
+                            Console.WriteLine("Enter the new end date of the trip: ");
+                            DateTime updatedValue = DateTime.Parse(Console.ReadLine().Trim());
+                            updatedTrip.endDate = updatedValue;
+                            isValid = true;
+                            break;
+                        }
+
+                    case "cost":
+                        {
+                            Console.WriteLine("Enter the new cost (without $): ");
+                            decimal updatedValue = decimal.Parse(Console.ReadLine() ?? "");
+                            updatedTrip.cost = updatedValue;
+                            isValid = true;
+                            break;
+                        }
+            
+                    case "bye":
+                        {
+                            keepModifying = false;
+                            isValid = true;
+                            break;
+                        }
+                    default:
+                        {
+                            isValid = false;
+                            break;
+                        }
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Please input a valid value \n");
+            }
+        }
+        while (keepModifying || !isValid);
+
+        TripController.UpdateTrip(updatedTrip);
+        
+    }
+
+
+
 }
+ 
+

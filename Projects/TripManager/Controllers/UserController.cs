@@ -5,7 +5,7 @@ namespace TripManager.Controllers;
 
 public class UserController
 {
-    private static IUserStorageRepo _userData = new JsonUserStorage();//SqlUserStorage();
+    private static IUserStorageRepo _userData = new SqlUserStorage(); //JsonUserStorage();
                                                     
 
     public static void CreateUser(string userName)
