@@ -200,6 +200,7 @@ public class TripMenu
             }
         } while (validInput = false);
         
+        Console.WriteLine("\nPress any key to return to the Main Trip Menu.");
         Console.ReadKey();
         TripMenu.MainTripMenu(user);
         
@@ -214,7 +215,7 @@ public class TripMenu
         Trip deleteTrip = DisplayTripsToModify(user);
         TripController.DeleteTrip(deleteTrip);
 
-        Console.WriteLine("Trip successfully deleted");
+        Console.WriteLine("Trip successfully deleted!\nPress any key to return to the Main Trip Menu.");
         Console.ReadKey();
         TripMenu.MainTripMenu(user);
 
@@ -229,8 +230,8 @@ public class TripMenu
 
      public static void UpdateEachTripDisplay(Trip tripToUpdate, User user)
     {
-        bool keepModifying = true;
-        bool isValid = false;
+        bool continueUpdate = true;
+        bool validInput= false;
 
         Trip updatedTrip = new Trip();
 
@@ -253,7 +254,7 @@ public class TripMenu
             Console.WriteLine($"Start Date: {updatedTrip.startDate}");
             Console.WriteLine($"End Date: {updatedTrip.endDate}");
             Console.WriteLine($"Cost: {updatedTrip.cost}");
-            Console.WriteLine("\nWhen you're done updating your trip, enter 'bye'!");
+            Console.WriteLine("\nWhen you're done updating your trip, enter 'done'!");
             
             try
             {
@@ -264,7 +265,7 @@ public class TripMenu
                             Console.WriteLine("Enter the new destination: ");
                             string updatedValue = Console.ReadLine() ?? "";
                             updatedTrip.destination = updatedValue;
-                            isValid = true;
+                            validInput = true;
                             break;
                         }
                     case "description":
@@ -272,7 +273,7 @@ public class TripMenu
                             Console.WriteLine("Enter the new description: ");
                             string updatedValue = Console.ReadLine() ?? "";
                             updatedTrip.description = updatedValue;
-                            isValid = true;
+                            validInput = true;
                             break;
                         }
                     case "trip type":
@@ -280,7 +281,7 @@ public class TripMenu
                             Console.WriteLine("Enter the new trip type:  ");
                             string updatedValue = Console.ReadLine() ?? "";
                             updatedTrip.tripType = updatedValue;
-                            isValid = true;
+                            validInput = true;
                             break;
                         }
                     case "start date":
@@ -288,7 +289,7 @@ public class TripMenu
                             Console.WriteLine("Enter the new start date of the trip: ");
                             DateTime updatedValue = DateTime.Parse(Console.ReadLine().Trim());
                             updatedTrip.startDate = updatedValue;
-                            isValid = true;
+                            validInput = true;
                             break;
                         }
                     case "end date":
@@ -296,7 +297,7 @@ public class TripMenu
                             Console.WriteLine("Enter the new end date of the trip: ");
                             DateTime updatedValue = DateTime.Parse(Console.ReadLine().Trim());
                             updatedTrip.endDate = updatedValue;
-                            isValid = true;
+                            validInput = true;
                             break;
                         }
 
@@ -305,19 +306,20 @@ public class TripMenu
                             Console.WriteLine("Enter the new cost (without $): ");
                             decimal updatedValue = decimal.Parse(Console.ReadLine() ?? "");
                             updatedTrip.cost = updatedValue;
-                            isValid = true;
+                            validInput = true;
                             break;
                         }
             
-                    case "bye":
+                    case "done":
                         {
-                            keepModifying = false;
-                            isValid = true;
+                            continueUpdate = false;
+                            validInput = true;
+                            
                             break;
                         }
                     default:
                         {
-                            isValid = false;
+                            validInput = false;
                             break;
                         }
                 }
@@ -327,9 +329,12 @@ public class TripMenu
                 Console.WriteLine("Please input a valid value \n");
             }
         }
-        while (keepModifying || !isValid);
+        while (continueUpdate || !validInput);
 
         TripController.UpdateTrip(updatedTrip);
+        Console.WriteLine("\nTrip has been successfully updated.\nPress any key to return to the Main Trip Menu.");
+        Console.ReadKey();
+        TripMenu.MainTripMenu(user);
         
     }
 
